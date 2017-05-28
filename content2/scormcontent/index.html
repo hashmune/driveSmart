@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta charset="utf-8">
+
+    <title>Drive Smart</title>
+
+    <link type="text/css" rel="stylesheet" href="lib/icomoon.css">
+    <link type="text/css" rel="stylesheet" href="lib/main.bundle.css">
+    <link type="text/css" rel="stylesheet" href="lib/fonts.css">
+    <script type="text/javascript" src="lib/player-0.0.11.min.js"></script>
+    
+    <link rel="shortcut icon" href="favicon.png">
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <style>
+      .brand--head, .brand--head *   { font-family: Lato !important; }
+      .brand--body, .brand--body *   { font-family: Merriweather !important; }
+      .brand--lhead, .brand--lhead * { font-family: Lato !important; }
+      .brand--lbody, .brand--lbody * { font-family: Merriweather !important; }
+      .brand--ui, .brand--ui *       { font-family: Lato !important; }
+
+      .brand--beforeHead:before { font-family: Lato !important; }
+      .brand--afterHead:after { font-family: Lato !important; }
+
+      .brand--background        { background-color: #FF631E !important; }
+      .brand--background-all *  { background-color: #FF631E !important; }
+      .brand--border            { border-color: #FF631E !important; }
+      .brand--color             { color: #FF631E !important; }
+      .brand--color-all *       { color: #FF631E !important; }
+      .brand--shadow            { box-shadow: 0 0 0 0.2rem #FF631E !important; }
+      .brand--shadow-all *      { box-shadow: 0 0 0 0.2rem #FF631E !important; }
+      .brand--fill              { fill: #FF631E !important; }
+      .brand--stroke            { stroke: #FF631E !important; }
+
+      .brand--beforeBackground:before { background-color: #FF631E !important; }
+      .brand--beforeBorder:before     { border-color: #FF631E !important; }
+      .brand--beforeColor:before      { color: #FF631E !important; }
+
+      .brand--afterBackground:after { background-color: #FF631E !important; }
+      .brand--afterBorder:after     { border-color: #FF631E !important; }
+      .brand--afterColor:after      { color: #FF631E !important; }
+
+      /* should be applied to containers where links
+         need to appear in brand color */
+      .brand--linkColor a { color: #FF631E !important; }
+
+      /* should be applied to containers where links
+         need to change to brand color on hover */
+      .brand--linkColorHover a:hover { color: #FF631E !important; }
+
+      /* should be applied to any single element that
+         needs to change color on hover */
+      .brand--hoverColor:hover { color: #FF631E !important; }
+
+      /* TODO: probably need a way to create a 5-10% darker/lighter color */
+      .brand--linkColor a:hover,
+      .button.brand--background:hover { opacity: .65 !important; }
+
+      @media (min-width: 47.9375em) { /* 768px */
+        .brand--min768--background { background-color: #FF631E !important; }
+        .brand--min768--border     { border-color: #FF631E !important; }
+        .brand--min768--color      { color: #FF631E !important; }
+      }
+
+      @media (max-width: 47.9375em) { /* 768px */
+        .brand--max768--background { background-color: #FF631E !important; }
+        .brand--max768--border     { border-color: #FF631E !important; }
+        .brand--max768--color      { color: #FF631E !important; }
+      }
+    </style>
+    <div id="app"></div>
+    <script>
+      (function(root) {
+        var data = 'eyJ0aXRsZSI6IkRyaXZlIFNtYXJ0IiwiaWQiOiJwbUs5UTcxWTdQcEVVaWJzOHR0SThwOGRMWDJDZmZoQSIsIm9yaWdpbmFsSWQiOm51bGwsImF1dGhvciI6ImF1dGgwfDU5MTZkYTIwMWIyMmE4MWFiMjFlYjNkYiIsInNlbGVjdGVkQXV0aG9ySWQiOiJub25lIiwiY29sb3IiOiIjRkY2MzFFIiwibmF2aWdhdGlvbk1vZGUiOiJmcmVlIiwic2hhcmVQYXNzd29yZCI6IiIsImRlc2NyaXB0aW9uIjoiPGJyPiIsInNoYXJlSWQiOiJ4V3MyMDk4REp3VzN0Mi1EZlZkQ2lJSkotUFN3VThsRCIsImNvcHlPZiI6IiIsIm9yZGVyIjoiMTQ5NDY5NDY4MzEwNSIsImZvbnRzIjp7InVpIjp7ImZvbnQiOiJMYXRvIn0sImJvZHkiOnsiZm9udCI6Ik1lcnJpd2VhdGhlciJ9LCJoZWFkaW5ncyI6eyJmb250IjoiTGF0byJ9fSwibWVkaWEiOnt9LCJjb3ZlckltYWdlIjp7fSwibGVzc29ucyI6W3siaWQiOiJBYXppdG5BUUZtLWJxQWtVOFpRb3B6TVBXQzkxSFRTZCIsIm9yaWdpbmFsSWQiOm51bGwsImF1dGhvciI6IiIsInNlbGVjdGVkQXV0aG9ySWQiOiJub25lIiwiY291cnNlSWQiOiJwbUs5UTcxWTdQcEVVaWJzOHR0SThwOGRMWDJDZmZoQSIsInRpdGxlIjoiU3RyZXRjaGluZyBmb3IgU3VjY2VzcyIsImRlc2NyaXB0aW9uIjoiPHA+SXQgY2FuIGJlIHRlbXB0aW5nIHRvIGVuZCB5b3VyIHdvcmtvdXQgYWZ0ZXIgZmluaXNoaW5nIHRoZSBsYXN0IG1pbGUgb3IgbGlmdGluZyB0aGUgbGFzdCByZXAuIEJ1dCBhZGRpbmcgc29tZSBzdHJldGNoZXMgdG8geW91ciBleGVyY2lzZSByb3V0aW5lIGNhbiBpbXByb3ZlIHlvdXIgZmxleGliaWxpdHkgYW5kIGRlY3JlYXNlIHlvdXIgcmlzayBvZiBpbmp1cnkuIDwvcD48cD48YnI+PC9wPjxwPkhlcmXigJlzIGEgdmlkZW8gZGVtb25zdHJhdGluZyBhIGJhc2ljIHN0cmV0Y2hpbmcgcm91dGluZSB0aGF0IHlvdSBjYW4gaW5jb3Jwb3JhdGUgaW50byB5b3VyIHdvcmtvdXQgdG9kYXkhPC9wPiIsInR5cGUiOiJ2aWRlbyIsImljb24iOiJWaWRlbyIsIml0ZW1zIjpbXSwibWVkaWEiOnsidmlkZW8iOnsia2V5IjoieW9nYS5tcDQiLCJzcmMiOiJodHRwczovL2Nkbi5hcnRpY3VsYXRlLmNvbS9hc3NldHMvcmlzZS9hc3NldHMvc2FtcGxlLWNvdXJzZS95b2dhLm1wNCIsImpvYklkIjoiMTQ3MzYzMDMwODEzMi1EYnBxWVJ4XyIsInBvc3RlciI6InlvZ2EtcG9zdGVyLnBuZyIsInRodW1ibmFpbCI6Imh0dHBzOi8vY2RuLmFydGljdWxhdGUuY29tL2Fzc2V0cy9yaXNlL2Fzc2V0cy9zYW1wbGUtY291cnNlL3lvZ2EtdGh1bWIucG5nIiwib3JpZ2luYWxVcmwiOiJTY3JlZW4gUmVjb3JkaW5nIDIwMTYtMDktMTEgYXQgNS40NC4zMSBQTS5tcDQifX0sInBpbGVzIjpbXSwic2V0dGluZ3MiOnt9LCJkdXBsaWNhdGVkRnJvbUlkIjoiIiwiZGVsZXRlZCI6ZmFsc2UsImNyZWF0ZWRBdCI6IjIwMTctMDUtMTNUMTA6MDg6NTIuODc4WiIsInVwZGF0ZWRBdCI6IjIwMTctMDUtMTNUMTA6MDg6NTIuODc4WiJ9LHsiaWQiOiJaVDFwWGtTLTJtYzBKUTZrVlpVcHhHUnRwNVRUUDVLcSIsIm9yaWdpbmFsSWQiOm51bGwsImF1dGhvciI6IiIsInNlbGVjdGVkQXV0aG9ySWQiOiJub25lIiwiY291cnNlSWQiOiJwbUs5UTcxWTdQcEVVaWJzOHR0SThwOGRMWDJDZmZoQSIsInRpdGxlIjoiRHJpdmUgU21hcnQiLCJkZXNjcmlwdGlvbiI6IiIsInR5cGUiOiJibG9ja3MiLCJpY29uIjoiQXJ0aWNsZSIsIml0ZW1zIjpbeyJpZCI6MTIsInR5cGUiOiJ0ZXh0IiwiaXRlbXMiOlt7ImlkIjoyOCwiaGVhZGluZyI6IlJPQUQgU0lHTlMiLCJpc05ld2x5SW5zZXJ0ZWQiOmZhbHNlfV0sImZhbWlseSI6InRleHQiLCJ2YXJpYW50IjoiaGVhZGluZyIsInNldHRpbmdzIjp7InBhZGRpbmdUb3AiOjMsInBhZGRpbmdCb3R0b20iOjAsImJhY2tncm91bmRDb2xvciI6IiIsImVudHJhbmNlQW5pbWF0aW9uIjp0cnVlfX0seyJpZCI6ImNqMm5kd2U0YzAwMDUyMjV5d2c5eWJzcGIiLCJ0eXBlIjoiaW50ZXJhY3RpdmUiLCJpdGVtcyI6W3siaWQiOjEsIm1lZGlhIjp7ImltYWdlIjp7ImtleSI6InJpc2UvY291cnNlcy9wbUs5UTcxWTdQcEVVaWJzOHR0SThwOGRMWDJDZmZoQS92WVMyYjJaSDRsU3dkclRkLmpwZyIsInNyYyI6InZZUzJiMlpINGxTd2RyVGQuanBnIiwiZXJyb3IiOm51bGwsInRodW1ibmFpbCI6Imh0dHBzOi8vaW1hZ2VzLmFydGljdWxhdGUuY29tL2Y6anBnLGI6ZmZmLHc6MTAwLGg6MTAwLHM6Y292ZXIvcmlzZS9jb3Vyc2VzL3BtSzlRNzFZN1BwRVVpYnM4dHRJOHA4ZExYMkNmZmhBL3ZZUzJiMlpINGxTd2RyVGQuanBnIiwib3JpZ2luYWxVcmwiOiJ3YXJuZXcucG5nIiwiaXNQcm9jZXNzaW5nIjpmYWxzZSwidXBsb2FkUHJvZ3Jlc3MiOjB9fSwidGl0bGUiOiJEYW5nZXIgV2FybmluZyBTaWducyIsImRlc2NyaXB0aW9uIjoiPHA+V2FybmluZyBzaWducyBhbGVydCBkcml2ZXJzIHRvIGV4aXN0aW5nIG9yIHBvdGVudGlhbGx5IGhhemFyZG91cyByb2FkIGNvbmRpdGlvbnMuVGhleSBhcmUgdXN1YWxseSBibGFjayBvbiBhIHllbGxvdyBiYWNrZ3JvdW5kIGFuZCBhcmUgbW9zdGx5IGRpYW1vbmQgc2hhcGVkLiBJbiB0aGF0IGNhc2UgeW91IHNob3VsZCBzbG93IGRvd24gYW5kIGJlIG1vcmUgY2FyZWZ1bC48L3A+IiwiaXNOZXdseUluc2VydGVkIjpmYWxzZX0seyJpZCI6MiwibWVkaWEiOnsiaW1hZ2UiOnsia2V5IjoicmlzZS9jb3Vyc2VzL3BtSzlRNzFZN1BwRVVpYnM4dHRJOHA4ZExYMkNmZmhBL000dC1MQUQtRm5kSzZvUUkuanBnIiwic3JjIjoiTTR0LUxBRC1GbmRLNm9RSS5qcGciLCJlcnJvciI6bnVsbCwidGh1bWJuYWlsIjoiaHR0cHM6Ly9pbWFnZXMuYXJ0aWN1bGF0ZS5jb20vZjpqcGcsYjpmZmYsdzoxMDAsaDoxMDAsczpjb3Zlci9yaXNlL2NvdXJzZXMvcG1LOVE3MVk3UHBFVWliczh0dEk4cDhkTFgyQ2ZmaEEvTTR0LUxBRC1GbmRLNm9RSS5qcGciLCJvcmlnaW5hbFVybCI6InByb2hpbmV3LnBuZyIsImlzUHJvY2Vzc2luZyI6ZmFsc2UsInVwbG9hZFByb2dyZXNzIjowfX0sInRpdGxlIjoiUHJvaGliaXRvcnkgU2lnbnMiLCJkZXNjcmlwdGlvbiI6IjxwPlByb2hpYml0b3J5IHRyYWZmaWMgc2lnbnMgYXJlIHVzZWQgdG8gcHJvaGliaXQgY2VydGFpbiB0eXBlcyBvZiBtYW5vZXV2cmVzIG9yIHNvbWUgdHlwZXMgb2YgdHJhZmZpYy48L3A+IiwiaXNOZXdseUluc2VydGVkIjpmYWxzZX1dLCJmYW1pbHkiOiJpbnRlcmFjdGl2ZSIsInZhcmlhbnQiOiJ0YWJzIiwic2V0dGluZ3MiOnsicGFkZGluZ1RvcCI6IjMiLCJ6b29tT25DbGljayI6dHJ1ZSwicGFkZGluZ0JvdHRvbSI6MywiYmFja2dyb3VuZENvbG9yIjoiIiwiZW50cmFuY2VBbmltYXRpb24iOnRydWV9fSx7ImlkIjo3LCJ0eXBlIjoidGV4dCIsIml0ZW1zIjpbeyJpZCI6MjcsImhlYWRpbmciOiJXaHkgUm9hZCBTaWducz8/IiwicGFyYWdyYXBoIjoiPHA+VGhleSBhcmUgaW1wb3J0YW50IHRvIGVuc3VyZSBzbW9vdGggdHJhZmZpYyBmbG93IHdpdGhvdXQgYm90dGxlIG5lY2tzIG9yIG1pc2hhcHMuIFJvYWQgc2lnbnMgZ2l2ZSBvdXQgYSBudW1iZXIgb2YgbWVzc2FnZXMgcmVnYXJkaW5nIHRoZSByb2FkIGFuZCB3aGF0IHlvdSBhcyBhIGRyaXZlciBzaG91bGQgZXhwZWN0IG9uIHRoZSByb2FkLiBUaGVyZWZvcmUsIGlmIGZvbGxvd2VkIHByb3Blcmx5LCByb2FkIHNpZ25zIGhlbHAgbWFpbnRhaW5pbmcgZGlzY2lwbGluZSBvbiB0aGUgcm9hZC4gUHJlLWluZm9ybWVkIGRyaXZlcnMgd2lsbCBuYXR1cmFsbHkgYXZvaWQgY29tbWl0dGluZyBtaXN0YWtlcyBhbmQgYXMgcm9hZCBzaWducyZuYnNwOyBpbmRpY2F0aW5nIHR1cm5zLCBkaXJlY3Rpb25zIGFuZCBsYW5kbWFya3MsIGl0IGFsc28gaGVscCB0byBzYXZlIHRpbWUgYW5kIGZ1ZWwgYnkgcHJvdmlkaW5nIGluZm9ybWF0aW9uIG9uIHRoZSByb3V0ZSB0byBiZSB0YWtlbiB0byByZWFjaCBhIHBhcnRpY3VsYXIgZGVzdGluYXRpb24uIDwvcD4iLCJpc05ld2x5SW5zZXJ0ZWQiOmZhbHNlfV0sImZhbWlseSI6InRleHQiLCJ2YXJpYW50IjoiaGVhZGluZyBwYXJhZ3JhcGgiLCJzZXR0aW5ncyI6eyJwYWRkaW5nVG9wIjozLCJwYWRkaW5nQm90dG9tIjozLCJiYWNrZ3JvdW5kQ29sb3IiOiIiLCJlbnRyYW5jZUFuaW1hdGlvbiI6dHJ1ZX19LHsiaWQiOiJjajJuaHIxamUwMDA4MjI1eWllcjB6ZXg3IiwidHlwZSI6InF1b3RlIiwiaXRlbXMiOlt7ImlkIjozMiwibmFtZSI6IjxwPkRyaXZlIFNtYXJ0ISEhPGJyPjwvcD4iLCJhdmF0YXIiOnsibWVkaWEiOnsiaW1hZ2UiOnsia2V5IjoicmlzZS9jb3Vyc2VzL3BtSzlRNzFZN1BwRVVpYnM4dHRJOHA4ZExYMkNmZmhBL0xXTHlLeWpadVRfZ1RzN2IuanBnIiwic3JjIjoiTFdMeUt5alp1VF9nVHM3Yi5qcGciLCJlcnJvciI6bnVsbCwidGh1bWJuYWlsIjoiaHR0cHM6Ly9pbWFnZXMuYXJ0aWN1bGF0ZS5jb20vZjpqcGcsYjpmZmYsdzoxMDAsaDoxMDAsczpjb3Zlci9yaXNlL2NvdXJzZXMvcG1LOVE3MVk3UHBFVWliczh0dEk4cDhkTFgyQ2ZmaEEvTFdMeUt5alp1VF9nVHM3Yi5qcGciLCJvcmlnaW5hbFVybCI6ImltYWdlcy5qcGciLCJpc1Byb2Nlc3NpbmciOmZhbHNlLCJ1cGxvYWRQcm9ncmVzcyI6MH19fSwicGFyYWdyYXBoIjoiPHA+TE9WRSBTQUZFVFkuLi48L3A+PHA+TUFSUlkgUlVMRVMuLi48L3A+PHA+RElWT1JDRSBTUEVFRC4uLjxicj48L3A+IiwiaXNOZXdseUluc2VydGVkIjpmYWxzZX1dLCJmYW1pbHkiOiJxdW90ZSIsInZhcmlhbnQiOiJiIiwic2V0dGluZ3MiOnsicGFkZGluZ1RvcCI6MywicGFkZGluZ0JvdHRvbSI6MywiYmFja2dyb3VuZENvbG9yIjoiIiwiZW50cmFuY2VBbmltYXRpb24iOnRydWV9fSx7ImlkIjoxMCwidHlwZSI6ImRpdmlkZXIiLCJmYW1pbHkiOiJkaXZpZGVyIiwidmFyaWFudCI6InNwYWNpbmcgZGl2aWRlciIsInNldHRpbmdzIjp7InBhZGRpbmdUb3AiOjMsInBhZGRpbmdCb3R0b20iOjMsImJhY2tncm91bmRDb2xvciI6IiIsImVudHJhbmNlQW5pbWF0aW9uIjp0cnVlfX1dLCJtZWRpYSI6e30sInBpbGVzIjpbXSwic2V0dGluZ3MiOnt9LCJkdXBsaWNhdGVkRnJvbUlkIjoiIiwiZGVsZXRlZCI6ZmFsc2UsImNyZWF0ZWRBdCI6IjIwMTctMDUtMTNUMTA6MDg6NTIuODc4WiIsInVwZGF0ZWRBdCI6IjIwMTctMDUtMTNUMTA6MDg6NTIuODc4WiJ9LHsiaWQiOiJkeHYtMnhtZGRWWjAwTjhJU1BFMkpmRUJUOWZNVjNRLSIsIm9yaWdpbmFsSWQiOm51bGwsImF1dGhvciI6IiIsInNlbGVjdGVkQXV0aG9ySWQiOiJub25lIiwiY291cnNlSWQiOiJwbUs5UTcxWTdQcEVVaWJzOHR0SThwOGRMWDJDZmZoQSIsInRpdGxlIjoiV2VsbG5lc3MgUXVpeiIsImRlc2NyaXB0aW9uIjoiPHA+Tm93IHRoYXQgeW914oCZdmUgZXhwbG9yZWQgc29tZSBhc3BlY3RzIG9mIHBoeXNpY2FsLCBtZW50YWwsIGFuZCBlbW90aW9uYWwgd2VsbG5lc3MsIGl04oCZcyB0aW1lIHRvIHRha2UgYSBzaG9ydCBxdWl6IHRlc3RpbmcgeW91ciBXZWxsbmVzcyBJUS4gTGV04oCZcyBzZWUgd2hhdCB5b3XigJl2ZSBsZWFybmVkIHNvIGZhciE8L3A+IiwidHlwZSI6InF1aXoiLCJpY29uIjoiUXVpeiIsIml0ZW1zIjpbeyJpZCI6MSwibWVkaWEiOnsiaW1hZ2UiOnsia2V5IjoiYXNzZXRzL3Jpc2UvYXNzZXRzL3NhbXBsZS1jb3Vyc2UvcGxhdGUuanBnIiwic3JjIjoicGxhdGUuanBnIiwidGh1bWJuYWlsIjoiaHR0cHM6Ly9jZG4uYXJ0aWN1bGF0ZS5jb20vYXNzZXRzL3Jpc2UvYXNzZXRzL3NhbXBsZS1jb3Vyc2UvcGxhdGUtdGh1bWIuanBnIiwib3JpZ2luYWxVcmwiOiJwbGF0ZS5qcGcifX0sInRpdGxlIjoiPHA+Jm5ic3A7UHJlLXJlcXVpc2l0ZXMgZm9yIERyaXZpbmc6LTwvcD4iLCJhbnN3ZXJzIjpbeyJpZCI6MSwidGl0bGUiOiJNeXRoIn0seyJpZCI6MiwidGl0bGUiOiJGYWN0In1dLCJjb3JyZWN0IjoxLCJmZWVkYmFjayI6IlN0dWRpZXMgc3VnZ2VzdCB0aGF0IGVhdGluZyB0aHJlZSBvciBtb3JlIHNtYWxsIG1lYWxzIHRocm91Z2hvdXQgdGhlIGRheSBpcyB0aGUga2V5IHRvIHN1Y2Nlc3NmdWxseSBzaGVkZGluZyBwb2ludHMgYW5kIG1haW50YWluaW5nIGEgaGVhbHRoeSB3ZWlnaHQuIFRyeSBzcHJlYWRpbmcgb3V0IHlvdXIgY2Fsb3JpYyBpbnRha2Ugb3ZlciBzZXZlcmFsIHNtYWxsIG1lYWxzIHJhdGhlciB0aGFuIGVhdGluZyB0aGUgbWFqb3JpdHkgb2YgeW91ciBkYWlseSBjYWxvcmllcyBpbiBvbmUgc2l0dGluZy4ifSx7ImlkIjoyLCJ0aXRsZSI6IkhvdyBtYW55IHRpbWVzIHBlciB3ZWVrIHNob3VsZCB5b3UgZXhlcmNpc2U/IiwiYW5zd2VycyI6W3siaWQiOjEsInRpdGxlIjoiMS0yIHRpbWVzIHBlciB3ZWVrIn0seyJpZCI6MiwidGl0bGUiOiIzLTQgdGltZXMgcGVyIHdlZWsifSx7ImlkIjozLCJ0aXRsZSI6IjQtNSB0aW1lcyBwZXIgd2VlayJ9LHsiaWQiOjQsInRpdGxlIjoiRXZlcnkgZGF5In1dLCJjb3JyZWN0IjozLCJmZWVkYmFjayI6IldoaWxlIHRoZSBleGFjdCBudW1iZXIgZGVwZW5kcyBvbiB5b3VyIGZpdG5lc3MgZ29hbHMsIGV4ZXJjaXNpbmcgZm91ciB0byBmaXZlIHRpbWVzIHBlciB3ZWVrIGlzIGEgZ29vZCBmcmVxdWVuY3kgZm9yIGltcHJvdmluZyBvdmVyYWxsIGhlYWx0aC4gVGhyZWUgb2YgeW91ciBkYXlzIHNob3VsZCBiZSBmb2N1c2VkIG9uIHN0cmVuZ3RoIHRyYWluaW5nLCB3aXRoIHRoZSBvdGhlciB0d28gY2VudGVyZWQgYXJvdW5kIGdldHRpbmcgaW4geW91ciBjYXJkaW8uIEFuZCwgb2YgY291cnNlLCBhIGNvdXBsZSBkYXlzIG9mIGFjdGl2ZSByZXN0IGlzIGltcG9ydGFudCwgdG9vLiJ9LHsiaWQiOiJjajJuNDR1bTIwMDAwMjI1eWQ3b2FsejA4IiwiaXNOZXciOmZhbHNlLCJtZWRpYSI6eyJpbWFnZSI6eyJrZXkiOiJyaXNlL2NvdXJzZXMvcG1LOVE3MVk3UHBFVWliczh0dEk4cDhkTFgyQ2ZmaEEveUZzaEw3YmthSEdoWmZYZS5wbmciLCJzcmMiOiJ5RnNoTDdia2FIR2haZlhlLnBuZyIsImVycm9yIjpudWxsLCJ0aHVtYm5haWwiOiJodHRwczovL2ltYWdlcy5hcnRpY3VsYXRlLmNvbS9mOmpwZyxiOmZmZix3OjEwMCxoOjEwMCxzOmNvdmVyL3Jpc2UvY291cnNlcy9wbUs5UTcxWTdQcEVVaWJzOHR0SThwOGRMWDJDZmZoQS95RnNoTDdia2FIR2haZlhlLnBuZyIsIm9yaWdpbmFsVXJsIjoibG9nby5wbmciLCJpc1Byb2Nlc3NpbmciOmZhbHNlLCJ1cGxvYWRQcm9ncmVzcyI6MH19LCJ0aXRsZSI6IjxwPldoYXQgYXJlIHRoZSBwcmVyZXF1aXNpdGVzIGZvciBEcml2aW5nPzwvcD4iLCJhbnN3ZXJzIjpbeyJpZCI6MSwiaXNOZXciOmZhbHNlLCJ0aXRsZSI6IjxwPllvdSBzaG91bGQgYmUgaW4gYSB3ZWxsIHBoeXNpY2FsICZhbXA7IG1lbnRhbCBzdGF0ZTwvcD4ifSx7ImlkIjoyLCJpc05ldyI6ZmFsc2UsInRpdGxlIjoiPHA+WW91ciB2ZWhpY2xlIHNob3VsZCBiZSBpbiBhIGdvb2QgY29uZGl0aW9uPC9wPiJ9LHsiaWQiOjMsImlzTmV3IjpmYWxzZSwidGl0bGUiOiI8cD5WYWxpZCBEcml2aW5nIGluc3VyYW5jZTwvcD4ifSx7ImlkIjo0LCJpc05ldyI6ZmFsc2UsInRpdGxlIjoiPHA+VmFsaWQgaW5jb21lIGNlcnRpZmljYXRlPC9wPiJ9LHsiaWQiOjUsImlzTmV3IjpmYWxzZSwidGl0bGUiOiI8cD5WYWxpZCBkcml2aW5nIGxpY2Vuc2U8L3A+In1dLCJjb3JyZWN0Ijo1LCJmZWVkYmFjayI6IjxwPkFsd2F5cyBhIHZhbGlkIGRyaXZpbmcgbGljZW5zZSBzaG91bGQgYmUgdGhlcmUgd2l0aCB5b3UuPGJyPjwvcD4ifSx7ImlkIjoiY2oybmFpZWEyMDAwMTIyNXkwY3psMWh4ZyIsImlzTmV3IjpmYWxzZSwidGl0bGUiOiI8cD5UaGlzIHJvYWQgc2lnbiBkZXBpY3RzOzxicj48L3A+IiwiYW5zd2VycyI6W3siaWQiOjEsImlzTmV3IjpmYWxzZSwidGl0bGUiOiJSb3VuZGFib3V0ICJ9LHsiaWQiOjIsImlzTmV3IjpmYWxzZSwidGl0bGUiOiJObyBwYXJraW5nIn0seyJpZCI6MywiaXNOZXciOmZhbHNlLCJ0aXRsZSI6Ik5vIHN0YW5kaW5nIn0seyJpZCI6NCwiaXNOZXciOmZhbHNlLCJ0aXRsZSI6IjxwPk5vIHN0YW5kaW5nIG5vIHBhcmtpbmc8L3A+In1dLCJjb3JyZWN0Ijo0fV0sIm1lZGlhIjp7fSwicGlsZXMiOltdLCJzZXR0aW5ncyI6eyJyZXRyeVF1aXoiOnRydWUsInJldHJ5Q291bnQiOiIzIiwicGFzc2luZ1Njb3JlIjo4MCwicmV2ZWFsQW5zd2VycyI6dHJ1ZSwic2h1ZmZsZUFuc3dlckNob2ljZXMiOmZhbHNlLCJyYW5kb21pemVRdWVzdGlvbk9yZGVyIjpmYWxzZX0sImR1cGxpY2F0ZWRGcm9tSWQiOiIiLCJkZWxldGVkIjpmYWxzZSwiY3JlYXRlZEF0IjoiMjAxNy0wNS0xM1QxMDowODo1Mi44NzhaIiwidXBkYXRlZEF0IjoiMjAxNy0wNS0xM1QxMDowODo1Mi44NzhaIn1dLCJqb2JzIjpbXSwibGFiZWxTZXRJZCI6IkhkUVpqd2JxNlRDUUpTWlpHWUlIWmluVyIsImRlbGV0ZWQiOmZhbHNlLCJjcmVhdGVkQXQiOiIyMDE3LTA1LTEzVDEwOjA4OjUyLjg2N1oiLCJ1cGRhdGVkQXQiOiIyMDE3LTA1LTEzVDE2OjU4OjAzLjEwNVoiLCJtYXJrQ29tcGxldGUiOmZhbHNlLCJpc0RlZmF1bHQiOnRydWUsImF1dGhvcnMiOlt7ImlkIjoiYXV0aDB8NTkxNmRhMjAxYjIyYTgxYWIyMWViM2RiIiwiYXZhdGFyIjoic21hbGwucG5nIiwiYXV0aG9yTmFtZSI6ImNoYW5kaW1hIGltYWxpa2EifV0sImxtc09wdGlvbnMiOnsiZW5hYmxlRXhpdENvdXJzZSI6ZmFsc2V9fQ==';
+        var labelSet = {"id":"HdQZjwbq6TCQJSZZGYIHZinW","author":"auth0|5916da201b22a81ab21eb3db","name":"English","defaultId":1,"defaultSet":true,"labels":{"quizNext":"NEXT","quizScore":"Your score","quizStart":"START QUIZ","courseExit":"EXIT COURSE","lessonName":"Lesson","lessonNext":"NEXT LESSON","quizSubmit":"SUBMIT","courseStart":"START COURSE","embedViewOn":"VIEW ON","quizCorrect":"Correct","quizPassing":"PASSING","quizResults":"Quiz Results","courseResume":"RESUME COURSE","quizQuestion":"Question","courseDetails":"DETAILS","embedReadMore":"Read more","quizIncorrect":"Incorrect","quizTakeAgain":"TAKE AGAIN","sortingReplay":"Replay","lessonComplete":"COMPLETE","lessonPrevious":"PREVIOUS LESSON","processComplete":"Complete","processNextStep":"NEXT STEP","processStepName":"Step","lessonRestricted":"Lessons must be completed in order","blocksClickToFlip":"Click to flip","blocksPreposition":"of","lessonPreposition":"of","processLessonName":"Lesson","processStartAgain":"START AGAIN","sortingCardsCorrect":"Cards Correct","processStepPreposition":"of"},"deleted":false,"createdAt":"2017-05-13T10:11:36.620Z","updatedAt":"2017-05-13T10:11:36.620Z"};
+
+        var quizId = "dxv-2xmddVZ00N8ISPE2JfEBT9fMV3Q-";
+        var completionPercentage = 100;
+        var reporting = 'passed-incomplete';
+
+        var stuffToPick = [
+          'SetObjectiveStatus',
+          'SetBookmark',   // set identifier for bookmark
+          'SetDataChunk',  // set a stringified object with lesson progress
+          'GetDataChunk',  // retreive stringified object with lesson progress
+          'SetReachedEnd', // tell LMS user completed course
+          'SetFailed', // tell LMS user Failed course
+          'SetPassed', // tell LMS user Passed the course
+          'SetScore', // Report Users Score to the LMS (for Pass and fail)
+          'GetStatus', // Get Current Status
+          'ResetStatus', // Reset the Status
+          'Finish',
+          'ConcedeControl'
+        ];
+
+        var LMSProxy = pick(stuffToPick, window.parent, Function.prototype);
+        finish(0);
+
+        var cache = getLMSData();
+
+        
+
+        function isPassed() {
+          return LMSProxy.GetStatus() === window.parent.LESSON_STATUS_PASSED;
+        }
+
+        function assign(target) {
+          if (target === undefined || target === null) {
+            throw new TypeError('assign: Cannot convert undefined or null to object');
+          }
+
+          var output = Object(target);
+
+          for (var index = 1; index < arguments.length; index++) {
+            var source = arguments[index];
+            if (source !== undefined && source !== null) {
+              for (var nextKey in source) {
+                if (source.hasOwnProperty(nextKey)) {
+                  output[nextKey] = source[nextKey];
+                }
+              }
+            }
+          }
+          return output;
+        }
+
+        function getLMSData() {
+          if(!cache) {
+            return JSON.parse(LMSProxy.GetDataChunk() || '{ "quizItems": {} }');
+          }
+
+          return cache;
+        }
+
+        function concatLMSData(data) {
+          if(!data.quizItems) {
+            assign(cache, data);
+          }
+
+          LMSProxy.SetDataChunk(JSON.stringify(cache));
+        }
+
+        function completeOut(passed) {
+          if(passed) {
+            switch(reporting) {
+              case 'completed-incomplete':
+              case 'completed-failed':
+                LMSProxy.ResetStatus();
+                LMSProxy.SetReachedEnd();
+                break;
+
+              case 'passed-incomplete':
+              case 'passed-failed':
+                LMSProxy.SetPassed();
+                LMSProxy.SetReachedEnd();
+                break;
+            }
+          
+          } else {
+            switch(reporting) {
+              case 'passed-failed':
+              case 'completed-failed':
+                if(!isPassed()) {
+                  LMSProxy.SetFailed();
+                }
+                break;
+            }
+          }
+        }
+
+        function bookmark(id) {
+          var url = 'index.html#/list/' + id + '/preview';
+
+          LMSProxy.SetBookmark(url, '');
+        }
+
+        function incQuizAttempts(quizId, attempts) {
+          var lmsAttempts = assign({}, { attempts: {} }, getLMSData()).attempts;
+
+          if(!lmsAttempts[quizId]) {
+            lmsAttempts[quizId] = attempts;
+          }
+
+          lmsAttempts[quizId] = lmsAttempts[quizId] + 1;
+          concatLMSData({ attempts: lmsAttempts });
+
+          return lmsAttempts[quizId];
+        }
+
+        function getQuizAttempts(quizId, attempts) {
+          var lmsAttempts = assign({}, { attempts: {} }, getLMSData()).attempts;
+
+          if(!lmsAttempts[quizId]) {
+            lmsAttempts[quizId] = attempts;
+          }
+
+          return lmsAttempts[quizId];
+        }
+
+        function getCurrentTime(id, currentTime) {
+          var times = getLMSData().times || {};
+          return times[id] || currentTime;
+        }
+
+        function setCurrentTime(id, currentTime) {
+          var times = getLMSData().times || {};
+          times[id] = Math.max(currentTime, times[id]);
+          concatLMSData({ times: times });
+          return currentTime;
+        }
+
+        function reportScore(id, score) {
+          var highScore = Math.max(getLMSData().score || 0, score);
+          concatLMSData({ score: highScore });
+
+          LMSProxy.SetScore(highScore, 100, 0);
+        }
+
+        function finish(totalProgress) {
+          if(quizId === null && completionPercentage != undefined && totalProgress >= completionPercentage) {
+            completeOut(true)
+          }
+        }
+
+        function exit() {
+          LMSProxy.ConcedeControl();
+        }
+
+        function finishQuiz(passed, score, id) {
+          delete cache.quizItems[id];
+          concatLMSData({ quizItems: cache.quizItems });
+
+          if(id == quizId) {
+            reportScore(id, score);
+            completeOut(passed);
+          }
+        }
+
+        function getProgress(lessons) {
+          var progress = assign({}, { progress: {} }, getLMSData()).progress;
+
+          return Object.getOwnPropertyNames(progress).reduce(function(acc, key) {
+            acc[key] = decodeProgress(getLesson(lessons, key), progress[key]);
+            return acc;
+          }, {});
+        }
+
+        function setProgress(progress) {
+          concatLMSData({ progress: progress });
+        }
+
+        function isArray(x) {
+          return ({}).toString.call(x) === '[object Array]';
+        }
+
+        function getLesson(lessons, id) {
+          for(var i=0; i < lessons.length; i++) {
+            if(lessons[i].id === id) {
+              return lessons[i];
+            }
+          }
+          return null;
+        }
+
+        function itemAdd(acc, x) {
+          return acc + (isArray(x) ? 0 : x);
+        }
+
+        function done(item) {
+          return item.isDone === true;
+        }
+
+        function decodeItems(xs) {
+          return function(acc, progress, index) {
+            if(!progress) { return acc; }
+
+            var current = xs[index];
+            var id = current.id;
+            var items = current.items;
+
+            if(isArray(progress)) {
+              return acc.concat({
+                id: id,
+                items: progress.reduce(decodeItems(items), [])
+              })
+            }
+
+            if(items) {
+              return acc.concat({
+                id: id,
+                items: items.reduce(decodeItems(items), [])
+              })
+            }
+
+            return acc.concat({ id: id })
+          }
+        }
+
+        function decodeLessonItems(items, progress) {
+          return progress.reduce(decodeItems(items), [])
+        }
+
+        function decodeProgress(lesson, progress) {
+          var items = lesson.items || [];
+
+          if(isArray(progress)) {
+            if(progress.length === 1 && progress[0] === 1) {
+              return decodeLessonItems([ { items: items } ], progress)[0].items;
+            }
+
+            return decodeLessonItems(items, progress);
+          }
+
+          return progress;
+        }
+
+        function encodeItems(acc, lesson, index, arr) {
+          var zeros = acc[0];
+          var progress = acc[1];
+          var items = lesson.items || [];
+          var isDone = lesson.isDone;
+
+          if(isDone) {
+            return [ [], progress.concat(zeros, 1) ];
+          }
+
+          var doneItems = items.filter(done)
+
+          if(doneItems.length) {
+            if(doneItems.length === items.length) {
+              return [ [], progress.concat(zeros, 1) ];
+            }
+
+            var child = items.reduce(encodeItems, [ [], [] ]);
+            var itemsZeros = child[0]
+            var itemsProgress = child[1]
+
+            return [
+              [],
+              progress.concat(zeros,
+                itemsProgress.length === 1
+                  ? itemsProgress[0]
+                  : [ itemsZeros.length ? itemsProgress.concat(0) : itemsProgress ]
+              )
+            ];
+          }
+
+          if(index + 1 === arr.length) {
+            return [ [], progress.concat(0) ]
+          }
+
+          return [ zeros.concat(0), progress ]
+        }
+
+        function encodeProgress(lesson) {
+          var items = lesson.items;
+          var encoded = items.reduce(encodeItems, [ [], [] ])[1];
+
+          if(!encoded.length) {
+            return [ 0 ];
+          }
+
+          return encoded.reduce(itemAdd, 0) !== items.length
+            ? encoded : [ 1 ];
+        }
+
+        function pickQuiz(item) {
+          return pick([ 'isDone', 'isComplete', 'isCorrect' ], item);
+        }
+
+        function boolToNumber(bool) {
+          return bool ? 1 : 0;
+        }
+
+        function encodeQuizIems(items) {
+          return items.reduce(function(acc, item) {
+            return acc.concat([[
+              boolToNumber(item.isDone),
+              boolToNumber(item.isComplete),
+              boolToNumber(item.isCorrect)
+            ]]);
+          }, []);
+        }
+
+        function decodeQuizItems(items) {
+          return items.reduce(function(acc, item) {
+            return acc.concat({
+              isDone: !!item[0],
+              isComplete: !!item[1],
+              isCorrect: !!item[2]
+            })
+          }, [])
+        }
+
+        function setQuizItems(quizId, items) {
+          var quizItems = getLMSData().quizItems;
+
+          quizItems[quizId] = encodeQuizIems(items);
+          concatLMSData({ quizItems: quizItems });
+
+          return items;
+        }
+
+        function getQuizItems(quizId) {
+          var items = assign({}, { quizItems: {} }, getLMSData()).quizItems[quizId];
+
+          if(items) {
+            return decodeQuizItems(items);
+          }
+        }
+
+        function getScores(scores) {
+          var result = assign({}, { scores: scores }, getLMSData()).scores;
+          return result;
+        }
+
+        function setScore(id, score) {
+          var scores = assign({}, { scores: {} }, getLMSData()).scores;
+
+          scores[id] = score;
+          concatLMSData({ scores: scores });
+
+          return score;
+        }
+
+        function applyLMSData(data) {
+          data.lessons
+            .filter(function(l) { return l.type === 'quiz' })
+            .forEach(function(l) {
+              var retryCount = l.settings.retryQuiz ? l.settings.retryCount : 0;
+              var attempts = parseInt(retryCount) !== -1 ? getQuizAttempts(l.id, 0) : -Infinity;
+              var items = getQuizItems(l.id);
+
+              if(items) {
+                l.items.forEach(function(item, indx) {
+                  assign(item, items[indx]);
+                });
+              }
+
+              l.isDone = attempts > retryCount;
+            });
+
+          return data;
+        }
+
+        function fetch(decode, defaultData) {
+          return applyLMSData(decode(data) || defaultData);
+        }
+
+        function fetchLabelSet() {
+          return labelSet;
+        }
+
+        function resolvePath(path) {
+          return ('assets/').concat(path);
+        }
+
+        function createHistory(browserFunc, hashFunc) {
+          return hashFunc;
+        }
+
+        function pick(keys, obj, def) {
+          return keys.reduce(function(memo, key) {
+            if(obj[key] === undefined) {
+              if(def !== undefined) {
+                memo[key] = def
+              }
+            } else {
+              memo[key] = obj[key]
+            }
+
+            return memo;
+          }, {});
+        }
+
+        function debounce(fn, delay) {
+          var timer = null;
+          return function () {
+            var context = this, args = arguments;
+            clearTimeout(timer);
+            timer = setTimeout(function () {
+              fn.apply(context, args);
+            }, delay);
+          };
+        }
+
+        root.Runtime = {
+          fetch: fetch,
+          fetchLabelSet: fetchLabelSet,
+          resolvePath: resolvePath,
+          createHistory: createHistory,
+          bookmark: bookmark,
+          exit: exit,
+          encodeProgress: encodeProgress,
+          finish: finish,
+          finishQuiz: finishQuiz,
+          getProgress: getProgress,
+          setProgress: debounce(setProgress, 500),
+          setQuizItems: debounce(setQuizItems, 500),
+          getScores: getScores,
+          setScore: setScore,
+          getCurrentTime: getCurrentTime,
+          setCurrentTime: setCurrentTime,
+          incQuizAttempts: incQuizAttempts,
+          getQuizAttempts: getQuizAttempts
+        };
+      }(window));
+    </script>
+    <script src="lib/main.bundle.js"></script>
+  </body>
+</html>

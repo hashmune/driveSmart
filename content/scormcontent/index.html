@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta charset="utf-8">
+
+    <title>Drive Smart</title>
+
+    <link type="text/css" rel="stylesheet" href="lib/icomoon.css">
+    <link type="text/css" rel="stylesheet" href="lib/main.bundle.css">
+    <link type="text/css" rel="stylesheet" href="lib/fonts.css">
+    <script type="text/javascript" src="lib/player-0.0.11.min.js"></script>
+    
+    <link rel="shortcut icon" href="favicon.png" >
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <style>
+      .brand--head, .brand--head *   { font-family: Roboto !important; }
+      .brand--body, .brand--body *   { font-family: Open Sans !important; }
+      .brand--lhead, .brand--lhead * { font-family: Roboto !important; }
+      .brand--lbody, .brand--lbody * { font-family: Open Sans !important; }
+      .brand--ui, .brand--ui *       { font-family: Lato !important; }
+
+      .brand--beforeHead:before { font-family: Roboto !important; }
+      .brand--afterHead:after { font-family: Roboto !important; }
+
+      .brand--background        { background-color: #4BAAF4 !important; }
+      .brand--background-all *  { background-color: #4BAAF4 !important; }
+      .brand--border            { border-color: #4BAAF4 !important; }
+      .brand--color             { color: #4BAAF4 !important; }
+      .brand--color-all *       { color: #4BAAF4 !important; }
+      .brand--shadow            { box-shadow: 0 0 0 0.2rem #4BAAF4 !important; }
+      .brand--shadow-all *      { box-shadow: 0 0 0 0.2rem #4BAAF4 !important; }
+      .brand--fill              { fill: #4BAAF4 !important; }
+      .brand--stroke            { stroke: #4BAAF4 !important; }
+
+      .brand--beforeBackground:before { background-color: #4BAAF4 !important; }
+      .brand--beforeBorder:before     { border-color: #4BAAF4 !important; }
+      .brand--beforeColor:before      { color: #4BAAF4 !important; }
+
+      .brand--afterBackground:after { background-color: #4BAAF4 !important; }
+      .brand--afterBorder:after     { border-color: #4BAAF4 !important; }
+      .brand--afterColor:after      { color: #4BAAF4 !important; }
+
+      /* should be applied to containers where links
+         need to appear in brand color */
+      .brand--linkColor a { color: #4BAAF4 !important; }
+
+      /* should be applied to containers where links
+         need to change to brand color on hover */
+      .brand--linkColorHover a:hover { color: #4BAAF4 !important; }
+
+      /* should be applied to any single element that
+         needs to change color on hover */
+      .brand--hoverColor:hover { color: #4BAAF4 !important; }
+
+      /* TODO: probably need a way to create a 5-10% darker/lighter color */
+      .brand--linkColor a:hover,
+      .button.brand--background:hover { opacity: .65 !important; }
+
+      @media (min-width: 47.9375em) { /* 768px */
+        .brand--min768--background { background-color: #4BAAF4 !important; }
+        .brand--min768--border     { border-color: #4BAAF4 !important; }
+        .brand--min768--color      { color: #4BAAF4 !important; }
+      }
+
+      @media (max-width: 47.9375em) { /* 768px */
+        .brand--max768--background { background-color: #4BAAF4 !important; }
+        .brand--max768--border     { border-color: #4BAAF4 !important; }
+        .brand--max768--color      { color: #4BAAF4 !important; }
+      }
+    </style>
+    
+    <div id="app">
+            <div class="previous-lesson brand--linkColorHover" data-previous-lesson="true" style="display:block;">
+            	<a class="previous-lesson__link" href="../../index.html">
+            		<i class="icon icon-chevron-down"></i>
+                </a>
+            <div class="previous-lesson__link brand--ui">PREVIOUS LESSON</div>
+            </div>
+    </div>
+               
+    <script>
+      (function(root) {
+        var data = 'eyJ0aXRsZSI6IkRyaXZlIFNtYXJ0IiwiaWQiOiJ6NlBmN3JmVGcxZ3VfdXlMYUtvaF90UTR0T3NsaEp5TyIsIm9yaWdpbmFsSWQiOm51bGwsImF1dGhvciI6ImF1dGgwfDU5MTU1OWI2ZTM3MWNiN2Y2MGU1OGJlMiIsInNlbGVjdGVkQXV0aG9ySWQiOiIiLCJjb2xvciI6IiM0QkFBRjQiLCJuYXZpZ2F0aW9uTW9kZSI6ImZyZWUiLCJzaGFyZVBhc3N3b3JkIjoiIiwiZGVzY3JpcHRpb24iOiIiLCJzaGFyZUlkIjoiZk8yU2dKbk1za2RMbTN4M1RWOHhhelNKQmd0Vkd4dkUiLCJjb3B5T2YiOiIiLCJvcmRlciI6IjE0OTQ4MjI4MDgzMDEiLCJmb250cyI6eyJ1aSI6eyJmb250IjoiTGF0byJ9LCJib2R5Ijp7ImZvbnQiOiJPcGVuIFNhbnMifSwiaGVhZGluZ3MiOnsiZm9udCI6IlJvYm90byJ9fSwibWVkaWEiOnt9LCJjb3ZlckltYWdlIjp7ImFscGhhIjozMCwibWVkaWEiOnsiaW1hZ2UiOnsia2V5IjoicmlzZS9jb3Vyc2VzL3o2UGY3cmZUZzFndV91eUxhS29oX3RRNHRPc2xoSnlPL2o0SFRVTWM1dndYem04cm8tc3RvY2staW1hZ2UuanBnIiwic3JjIjoiajRIVFVNYzV2d1h6bThyby1zdG9jay1pbWFnZS5qcGciLCJ0aHVtYm5haWwiOiJodHRwczovL2ltYWdlcy5hcnRpY3VsYXRlLmNvbS9mOmpwZyxiOmZmZix3OjM0MCxzOmNvdmVyL3Jpc2UvY291cnNlcy96NlBmN3JmVGcxZ3VfdXlMYUtvaF90UTR0T3NsaEp5Ty9qNEhUVU1jNXZ3WHptOHJvLXN0b2NrLWltYWdlLmpwZyJ9fSwiZGlzcGxheVNpZGViYXIiOnRydWV9LCJsZXNzb25zIjpbeyJpZCI6ImNqMmxxYzhwbDAwMDIzYjY0NHdvbXQ5dTgiLCJvcmlnaW5hbElkIjpudWxsLCJhdXRob3IiOiJhdXRoMHw1OTE1NTliNmUzNzFjYjdmNjBlNThiZTIiLCJzZWxlY3RlZEF1dGhvcklkIjoiIiwiY291cnNlSWQiOiJ6NlBmN3JmVGcxZ3VfdXlMYUtvaF90UTR0T3NsaEp5TyIsInRpdGxlIjoiUm9hZCBSdWxlcyIsImRlc2NyaXB0aW9uIjoiIiwidHlwZSI6InNlY3Rpb24iLCJpY29uIjpudWxsLCJpdGVtcyI6W10sIm1lZGlhIjp7fSwicGlsZXMiOltdLCJzZXR0aW5ncyI6e30sImR1cGxpY2F0ZWRGcm9tSWQiOiIiLCJkZWxldGVkIjpmYWxzZSwiY3JlYXRlZEF0IjoiMjAxNy0wNS0xMlQxMDo1ODozNS4wNDVaIiwidXBkYXRlZEF0IjoiMjAxNy0wNS0xMlQxMTowMDoxNC4yMTRaIn0seyJpZCI6ImNqMmxxY3h1dDAwMDMzYjY0c3ZxeHhrbm8iLCJvcmlnaW5hbElkIjpudWxsLCJhdXRob3IiOiJhdXRoMHw1OTE1NTliNmUzNzFjYjdmNjBlNThiZTIiLCJzZWxlY3RlZEF1dGhvcklkIjoiIiwiY291cnNlSWQiOiJ6NlBmN3JmVGcxZ3VfdXlMYUtvaF90UTR0T3NsaEp5TyIsInRpdGxlIjoiIExJQ0VOQ0VTIiwiZGVzY3JpcHRpb24iOiIiLCJ0eXBlIjoiYmxvY2tzIiwiaWNvbiI6IkFydGljbGUiLCJpdGVtcyI6W3siaWQiOiJjajJwbDgxeDUwMDAyM2Q2NGp4OTd0a2g2IiwidHlwZSI6Imxpc3QiLCJpdGVtcyI6W3siaWQiOjM5LCJwYXJhZ3JhcGgiOiI8cD5UaGUgbGljZW5zaW5nIHN5c3RlbSwgaW5jbHVkaW5nIHRoZSBHcmFkdWF0ZWQgTGljZW5zaW5nIFNjaGVtZSwgc2hvd2luZyB0aGU8c3BhbiBzdHlsZT1cImZvbnQtZmFtaWx5OiBtZXJyaXdlYXRoZXIsIHNlcmlmOyBmb250LXNpemU6IDEuN3JlbTsgZm9udC13ZWlnaHQ6IDQwMDsgdGV4dC1hbGlnbjogaW5oZXJpdDtcIj52YXJpb3VzIHN0ZXBzIHlvdSBtdXN0IHRha2UgdG8gb2J0YWluIGEgZnVsbCBsaWNlbmNlPC9zcGFuPjwvcD4iLCJpc05ld2x5SW5zZXJ0ZWQiOmZhbHNlfSx7ImlkIjo0MCwicGFyYWdyYXBoIjoiPHA+VGhlIGZpcnN0IHN0ZXAgaW4gZ2V0dGluZyBhIGxlYXJuZXIgbGljZW5jZSBpcyB0YWtpbmcgdGhlIERyaXZlciBLbm93bGVkZ2UgVGVzdC48L3A+IiwiaXNOZXdseUluc2VydGVkIjpmYWxzZX0seyJpZCI6NDEsInBhcmFncmFwaCI6IjxwPuKAoiBJbmZvcm1hdGlvbiBvbiBleWVzaWdodCB0ZXN0cyBhbmQgcHJvb2Ygb2YgaWRlbnRpdHk8L3A+IiwiaXNOZXdseUluc2VydGVkIjpmYWxzZX1dLCJmYW1pbHkiOiJsaXN0IiwidmFyaWFudCI6ImJ1bGxldGVkIiwic2V0dGluZ3MiOnsicGFkZGluZ1RvcCI6MywicGFkZGluZ0JvdHRvbSI6MywiYmFja2dyb3VuZENvbG9yIjoiIiwiZW50cmFuY2VBbmltYXRpb24iOnRydWV9fSx7ImlkIjoiY2oycGw3emp0MDAwMTNkNjR2MnI0a3V4YyIsInR5cGUiOiJsaXN0IiwiaXRlbXMiOlt7ImlkIjozOSwicGFyYWdyYXBoIjoiPHA+VGhlIGRpZmZlcmVudCB0eXBlcyBvZiBsaWNlbmNlIGF2YWlsYWJsZSwgd2hhdCBza2lsbHMgb3IgZXhwZXJpZW5jZSBhcmUgcmVxdWlyZWQgdG8mbmJzcDs8c3BhbiBzdHlsZT1cImZvbnQtZmFtaWx5OiBtZXJyaXdlYXRoZXIsIHNlcmlmOyBmb250LXNpemU6IDEuN3JlbTsgZm9udC13ZWlnaHQ6IDQwMDsgdGV4dC1hbGlnbjogaW5oZXJpdDtcIj5nZXQgZWFjaCBsaWNlbmNlIGFuZCB0aGUgb2JsaWdhdGlvbnMgb2YgbGljZW5jZSBob2xkZXJzLjwvc3Bhbj48L3A+IiwiaXNOZXdseUluc2VydGVkIjpmYWxzZX0seyJpZCI6NDAsInBhcmFncmFwaCI6IjxwPlRoZSB2YXJpb3VzIGxpY2VuY2UgY2xhc3Nlcywgd2hpY2ggc2hvdyB3aGF0IGtpbmQgb2YgdmVoaWNsZSB5b3UgYXJlIGFsbG93ZWQgdG8mbmJzcDs8c3Bhbj5kcml2ZTwvc3Bhbj48L3A+IiwiaXNOZXdseUluc2VydGVkIjpmYWxzZX0seyJpZCI6NDIsInBhcmFncmFwaCI6IjxwPkluZm9ybWF0aW9uIGZvciBkcml2ZXJzIGZyb20gaW50ZXJzdGF0ZSBhbmQgb3ZlcnNlYXMuPGJyPjwvcD4iLCJpc05ld2x5SW5zZXJ0ZWQiOmZhbHNlfSx7ImlkIjo0MSwicGFyYWdyYXBoIjoiPHA+SW5mb3JtYXRpb24gZm9yIGRpc2FibGVkIGRyaXZlcnMsIHRob3NlIHdpdGggbWVkaWNhbCBjb25kaXRpb25zLCBhbmQgdGhvc2UgYWdlZCZuYnNwOzxzcGFuIHN0eWxlPVwiZm9udC1mYW1pbHk6IG1lcnJpd2VhdGhlciwgc2VyaWY7IGZvbnQtc2l6ZTogMS43cmVtOyBmb250LXdlaWdodDogNDAwOyB0ZXh0LWFsaWduOiBpbmhlcml0O1wiPjc1IGFuZCBvbGRlci48L3NwYW4+PC9wPiIsImlzTmV3bHlJbnNlcnRlZCI6ZmFsc2V9XSwiZmFtaWx5IjoibGlzdCIsInZhcmlhbnQiOiJidWxsZXRlZCIsInNldHRpbmdzIjp7InBhZGRpbmdUb3AiOjMsInBhZGRpbmdCb3R0b20iOjMsImJhY2tncm91bmRDb2xvciI6IiIsImVudHJhbmNlQW5pbWF0aW9uIjp0cnVlfX1dLCJtZWRpYSI6e30sInBpbGVzIjpbXSwic2V0dGluZ3MiOnt9LCJkdXBsaWNhdGVkRnJvbUlkIjoiIiwiZGVsZXRlZCI6ZmFsc2UsImNyZWF0ZWRBdCI6IjIwMTctMDUtMTJUMTA6NTk6MDcuNjQzWiIsInVwZGF0ZWRBdCI6IjIwMTctMDUtMTJUMTE6MDA6MTQuMjE0WiJ9LHsiaWQiOiJjajJwbDl0YXkwMDAzM2Q2NGlwd2tuam9tIiwib3JpZ2luYWxJZCI6bnVsbCwiYXV0aG9yIjoiYXV0aDB8NTkxNTU5YjZlMzcxY2I3ZjYwZTU4YmUyIiwic2VsZWN0ZWRBdXRob3JJZCI6IiIsImNvdXJzZUlkIjoiejZQZjdyZlRnMWd1X3V5TGFLb2hfdFE0dE9zbGhKeU8iLCJ0aXRsZSI6IlJPQUQgU0FGRVRZIiwiZGVzY3JpcHRpb24iOiIiLCJ0eXBlIjoiYmxvY2tzIiwiaWNvbiI6IkFydGljbGUiLCJpdGVtcyI6W3siaWQiOiJjajJwbGZyNnIwMDA3M2Q2NDFmNmE5bHN1IiwidHlwZSI6Imxpc3QiLCJpdGVtcyI6W3siaWQiOjM5LCJwYXJhZ3JhcGgiOiI8cD5TcGVlZGluZyBhbmQgaXRzIGRhbmdlcnMsIGluY2x1ZGluZyBmYWN0cyBvbiBmYXRhbCBjcmFzaGVzLCBhdHRpdHVkZXMgdG8gc3BlZWRpbmcmbmJzcDs8c3BhbiBzdHlsZT1cImZvbnQtZmFtaWx5OiBtZXJyaXdlYXRoZXIsIHNlcmlmOyBmb250LXNpemU6IDEuN3JlbTsgZm9udC13ZWlnaHQ6IDQwMDsgdGV4dC1hbGlnbjogaW5oZXJpdDtcIj5hbmQgdGhlIGVmZmVjdCBvZiBzcGVlZGluZyB1bmRlciBkaWZmZXJlbnQgY29uZGl0aW9ucy4mbmJzcDs8L3NwYW4+PC9wPiIsImlzTmV3bHlJbnNlcnRlZCI6ZmFsc2V9LHsiaWQiOjQwLCJwYXJhZ3JhcGgiOiI8cD5EcmluayBkcml2aW5nIHJpc2tzLCBpbmNsdWRpbmcgdGhlIGxlZ2FsIGxpbWl0IGZvciBhbGNvaG9sLCBpdHMgZWZmZWN0IG9uIGRyaXZpbmcmbmJzcDs8c3Bhbj5hbmQgaG93IGRydWdzIGFuZCBtZWRpY2F0aW9ucyBhZmZlY3QgZHJpdmluZy48L3NwYW4+PC9wPiIsImlzTmV3bHlJbnNlcnRlZCI6ZmFsc2V9LHsiaWQiOjQxLCJwYXJhZ3JhcGgiOiI8cD4mbmJzcDtIb3cgc2VhdCBiZWx0cyBhbmQgY2hpbGQgcmVzdHJhaW50cyBzYXZlIGxpdmVzLCBpbmNsdWRpbmcgaG93IHRvIHVzZSByZXN0cmFpbnRzIGFuZCZuYnNwOzxzcGFuIHN0eWxlPVwiZm9udC1mYW1pbHk6IG1lcnJpd2VhdGhlciwgc2VyaWY7IGZvbnQtc2l6ZTogMS43cmVtOyBmb250LXdlaWdodDogNDAwOyB0ZXh0LWFsaWduOiBpbmhlcml0O1wiPnRoZSB2YXJpb3VzIHR5cGVzIG9mIGNoaWxkIHJlc3RyYWludHMuJm5ic3A7PC9zcGFuPjwvcD4iLCJpc05ld2x5SW5zZXJ0ZWQiOmZhbHNlfV0sImZhbWlseSI6Imxpc3QiLCJ2YXJpYW50IjoiYnVsbGV0ZWQiLCJzZXR0aW5ncyI6eyJwYWRkaW5nVG9wIjozLCJwYWRkaW5nQm90dG9tIjozLCJiYWNrZ3JvdW5kQ29sb3IiOiIiLCJlbnRyYW5jZUFuaW1hdGlvbiI6dHJ1ZX19LHsiaWQiOiJjajJwbGt3eTkwMDA4M2Q2NGx6dmh5eXJvIiwidHlwZSI6Imxpc3QiLCJpdGVtcyI6W3siaWQiOjM5LCJwYXJhZ3JhcGgiOiI8cD5GYXRpZ3VlLCBpdHMgaGF6YXJkcyBhbmQgdGlwcyBvbiBob3cgdG8gYXZvaWQgZmF0aWd1ZS48L3A+IiwiaXNOZXdseUluc2VydGVkIjpmYWxzZX0seyJpZCI6NDAsInBhcmFncmFwaCI6IjxwPlBlZGVzdHJpYW5z4oCZIHJpZ2h0cyBhbmQgcmVzcG9uc2liaWxpdGllcywgYXMgd2VsbCBhcyBzYWZldHkgZm9yIG1vdG9yaXplZCB3aGVlbGNoYWlycy48L3A+IiwiaXNOZXdseUluc2VydGVkIjpmYWxzZX0seyJpZCI6NDEsInBhcmFncmFwaCI6IjxwPlRoZSBpbXBvcnRhbmNlIG9mIGJlaW5nIGFsZXJ0IHRvIG90aGVyIHJvYWQgdXNlcnMsIGVzcGVjaWFsbHkgcGVkZXN0cmlhbnMsPC9wPjxwPm1vdG9yY3ljbGlzdHMsIGJpY3ljbGlzdHMsIHRydWNrcywgYnVzZXMgYW5kIGhvcnNlIHJpZGVycy48L3A+IiwiaXNOZXdseUluc2VydGVkIjpmYWxzZX1dLCJmYW1pbHkiOiJsaXN0IiwidmFyaWFudCI6ImJ1bGxldGVkIiwic2V0dGluZ3MiOnsicGFkZGluZ1RvcCI6MywicGFkZGluZ0JvdHRvbSI6MywiYmFja2dyb3VuZENvbG9yIjoiIiwiZW50cmFuY2VBbmltYXRpb24iOnRydWV9fV0sIm1lZGlhIjp7fSwicGlsZXMiOltdLCJzZXR0aW5ncyI6e30sImR1cGxpY2F0ZWRGcm9tSWQiOiIiLCJkZWxldGVkIjpmYWxzZSwiY3JlYXRlZEF0IjoiMjAxNy0wNS0xNVQwMzo0Nzo0Ny40OTlaIiwidXBkYXRlZEF0IjoiMjAxNy0wNS0xNVQwNDoyNzoyMS4wNzRaIn0seyJpZCI6ImNqMnBsZHVwNzAwMDUzZDY0ZW02c3h2Ym8iLCJvcmlnaW5hbElkIjpudWxsLCJhdXRob3IiOiJhdXRoMHw1OTE1NTliNmUzNzFjYjdmNjBlNThiZTIiLCJzZWxlY3RlZEF1dGhvcklkIjoiIiwiY291cnNlSWQiOiJ6NlBmN3JmVGcxZ3VfdXlMYUtvaF90UTR0T3NsaEp5TyIsInRpdGxlIjoiR0VORVJBTCBST0FEIFJVTEVTIiwiZGVzY3JpcHRpb24iOiIiLCJ0eXBlIjoiYmxvY2tzIiwiaWNvbiI6IkFydGljbGUiLCJpdGVtcyI6W3siaWQiOiJjajJwbTFra2kwMDA5M2Q2NDNrZ3ZzZmhzIiwidHlwZSI6Imxpc3QiLCJpdGVtcyI6W3siaWQiOjM5LCJwYXJhZ3JhcGgiOiI8cD4mbmJzcDtTcGVlZCBsaW1pdHMgYW5kIGhvdyB0aGV5IGFwcGx5IGluIGRpZmZlcmVudCB6b25lcy48L3A+IiwiaXNOZXdseUluc2VydGVkIjpmYWxzZX0seyJpZCI6NDAsInBhcmFncmFwaCI6IjxwPlRoZSBydWxlcyBhYm91dCBkcmlua2luZyBhbmQgZHJpdmluZy48L3A+IiwiaXNOZXdseUluc2VydGVkIjpmYWxzZX0seyJpZCI6NDEsInBhcmFncmFwaCI6IjxwPiZuYnNwO0EgZHJpdmVy4oCZcyByZXNwb25zaWJpbGl0eSBmb3IgdmVoaWNsZSBvY2N1cGFudHMgdG8gd2VhciByZXN0cmFpbnRzLjwvcD4iLCJpc05ld2x5SW5zZXJ0ZWQiOmZhbHNlfV0sImZhbWlseSI6Imxpc3QiLCJ2YXJpYW50IjoiYnVsbGV0ZWQiLCJzZXR0aW5ncyI6eyJwYWRkaW5nVG9wIjozLCJwYWRkaW5nQm90dG9tIjozLCJiYWNrZ3JvdW5kQ29sb3IiOiIiLCJlbnRyYW5jZUFuaW1hdGlvbiI6dHJ1ZX19XSwibWVkaWEiOnt9LCJwaWxlcyI6W10sInNldHRpbmdzIjp7fSwiZHVwbGljYXRlZEZyb21JZCI6IiIsImRlbGV0ZWQiOmZhbHNlLCJjcmVhdGVkQXQiOiIyMDE3LTA1LTE1VDAzOjUwOjU2LjkzNFoiLCJ1cGRhdGVkQXQiOiIyMDE3LTA1LTE1VDA0OjI3OjIxLjA3NFoifSx7ImlkIjoiY2oycGxlYXBlMDAwNjNkNjRveHcxanhjZiIsIm9yaWdpbmFsSWQiOm51bGwsImF1dGhvciI6ImF1dGgwfDU5MTU1OWI2ZTM3MWNiN2Y2MGU1OGJlMiIsInNlbGVjdGVkQXV0aG9ySWQiOiIiLCJjb3Vyc2VJZCI6Ino2UGY3cmZUZzFndV91eUxhS29oX3RRNHRPc2xoSnlPIiwidGl0bGUiOiJWRUhJQ0xFIFJFR0lTVFJBVElPTiIsImRlc2NyaXB0aW9uIjoiIiwidHlwZSI6ImJsb2NrcyIsImljb24iOiJBcnRpY2xlIiwiaXRlbXMiOltdLCJtZWRpYSI6e30sInBpbGVzIjpbXSwic2V0dGluZ3MiOnt9LCJkdXBsaWNhdGVkRnJvbUlkIjoiIiwiZGVsZXRlZCI6ZmFsc2UsImNyZWF0ZWRBdCI6IjIwMTctMDUtMTVUMDM6NTE6MTYuNjg0WiIsInVwZGF0ZWRBdCI6IjIwMTctMDUtMTVUMDQ6Mjc6MjEuMDc1WiJ9LHsiaWQiOiJjajJwbTZteGUwMDBiM2Q2NGh1bjdwaXhqIiwib3JpZ2luYWxJZCI6bnVsbCwiYXV0aG9yIjoiYXV0aDB8NTkxNTU5YjZlMzcxY2I3ZjYwZTU4YmUyIiwic2VsZWN0ZWRBdXRob3JJZCI6IiIsImNvdXJzZUlkIjoiejZQZjdyZlRnMWd1X3V5TGFLb2hfdFE0dE9zbGhKeU8iLCJ0aXRsZSI6IlNBRkUgRFJJVklORyIsImRlc2NyaXB0aW9uIjoiIiwidHlwZSI6ImJsb2NrcyIsImljb24iOiJBcnRpY2xlIiwiaXRlbXMiOlt7ImlkIjoiY2oycG05ZWVoMDAwYzNkNjQzMHRrM25iYSIsInR5cGUiOiJsaXN0IiwiaXRlbXMiOlt7ImlkIjozOSwicGFyYWdyYXBoIjoiPHA+Jm5ic3A7T2JzZXJ2YXRpb24sIHNwZWVkIG1hbmFnZW1lbnQgYW5kIHJvYWQgcG9zaXRpb25pbmcuPHNwYW4+Jm5ic3A7PC9zcGFuPjwvcD4iLCJpc05ld2x5SW5zZXJ0ZWQiOmZhbHNlfSx7ImlkIjo0MCwicGFyYWdyYXBoIjoiPHA+Jm5ic3A7VGhlIGltcG9ydGFuY2Ugb2YgY3Jhc2ggYXZvaWRhbmNlIHNwYWNlLjwvcD4iLCJpc05ld2x5SW5zZXJ0ZWQiOmZhbHNlfSx7ImlkIjo0MSwicGFyYWdyYXBoIjoiPHA+VGhlIG1vc3QgY29tbW9uIGNyYXNoIHBhdHRlcm5zLjwvcD4iLCJpc05ld2x5SW5zZXJ0ZWQiOmZhbHNlfV0sImZhbWlseSI6Imxpc3QiLCJ2YXJpYW50IjoiYnVsbGV0ZWQiLCJzZXR0aW5ncyI6eyJwYWRkaW5nVG9wIjozLCJwYWRkaW5nQm90dG9tIjozLCJiYWNrZ3JvdW5kQ29sb3IiOiIiLCJlbnRyYW5jZUFuaW1hdGlvbiI6dHJ1ZX19LHsiaWQiOiJjajJwbWdjZzEwMDBkM2Q2NGhiYmlocm11IiwidHlwZSI6Imxpc3QiLCJpdGVtcyI6W3siaWQiOjM5LCJwYXJhZ3JhcGgiOiI8cD5Qb3N0dXJlLCBicmFraW5nIGFuZCBzdGVlcmluZyB0ZWNobmlxdWVzLjwvcD4iLCJpc05ld2x5SW5zZXJ0ZWQiOmZhbHNlfSx7ImlkIjo0MCwicGFyYWdyYXBoIjoiPHA+RWNvIERyaXZpbmcuPC9wPiIsImlzTmV3bHlJbnNlcnRlZCI6ZmFsc2V9LHsiaWQiOjQxLCJwYXJhZ3JhcGgiOiIiLCJpc05ld2x5SW5zZXJ0ZWQiOmZhbHNlfV0sImZhbWlseSI6Imxpc3QiLCJ2YXJpYW50IjoiYnVsbGV0ZWQiLCJzZXR0aW5ncyI6eyJwYWRkaW5nVG9wIjozLCJwYWRkaW5nQm90dG9tIjozLCJiYWNrZ3JvdW5kQ29sb3IiOiIiLCJlbnRyYW5jZUFuaW1hdGlvbiI6dHJ1ZX19XSwibWVkaWEiOnt9LCJwaWxlcyI6W10sInNldHRpbmdzIjp7fSwiZHVwbGljYXRlZEZyb21JZCI6IiIsImRlbGV0ZWQiOmZhbHNlLCJjcmVhdGVkQXQiOiIyMDE3LTA1LTE1VDA0OjEzOjE4Ljk2MVoiLCJ1cGRhdGVkQXQiOiIyMDE3LTA1LTE1VDA0OjI3OjIxLjA3NVoifV0sImpvYnMiOltdLCJsYWJlbFNldElkIjoiZ3Exa0VJS0lJbHpVWnhqTXlCUlRpZjJKIiwiZGVsZXRlZCI6ZmFsc2UsImNyZWF0ZWRBdCI6IjIwMTctMDUtMTJUMTA6MjM6MzMuOTIyWiIsInVwZGF0ZWRBdCI6IjIwMTctMDUtMTVUMDQ6MzM6MjguMzAxWiIsIm1hcmtDb21wbGV0ZSI6ZmFsc2UsImlzRGVmYXVsdCI6ZmFsc2UsImF1dGhvcnMiOlt7ImlkIjoiYXV0aDB8NTkxNTU5YjZlMzcxY2I3ZjYwZTU4YmUyIiwiYXZhdGFyIjoic21hbGwucG5nIiwiYXV0aG9yTmFtZSI6Ikh1bWFpcmFoIERhaGxhbiJ9XSwibG1zT3B0aW9ucyI6eyJlbmFibGVFeGl0Q291cnNlIjpmYWxzZX19';
+        var labelSet = {"id":"gq1kEIKIIlzUZxjMyBRTif2J","author":"auth0|591559b6e371cb7f60e58be2","name":"English","defaultId":1,"defaultSet":true,"labels":{"quizNext":"NEXT","quizScore":"Your score","quizStart":"START QUIZ","courseExit":"EXIT COURSE","lessonName":"Lesson","lessonNext":"NEXT LESSON","quizSubmit":"SUBMIT","courseStart":"START COURSE","embedViewOn":"VIEW ON","quizCorrect":"Correct","quizPassing":"PASSING","quizResults":"Quiz Results","courseResume":"RESUME COURSE","quizQuestion":"Question","courseDetails":"DETAILS","embedReadMore":"Read more","quizIncorrect":"Incorrect","quizTakeAgain":"TAKE AGAIN","sortingReplay":"Replay","lessonComplete":"COMPLETE","lessonPrevious":"PREVIOUS LESSON","processComplete":"Complete","processNextStep":"NEXT STEP","processStepName":"Step","lessonRestricted":"Lessons must be completed in order","blocksClickToFlip":"Click to flip","blocksPreposition":"of","lessonPreposition":"of","processLessonName":"Lesson","processStartAgain":"START AGAIN","sortingCardsCorrect":"Cards Correct","processStepPreposition":"of"},"deleted":false,"createdAt":"2017-05-12T09:32:00.179Z","updatedAt":"2017-05-12T09:32:00.179Z"};
+
+        var quizId = null;
+        var completionPercentage = 100;
+        var reporting = 'passed-incomplete';
+
+        var stuffToPick = [
+          'SetObjectiveStatus',
+          'SetBookmark',   // set identifier for bookmark
+          'SetDataChunk',  // set a stringified object with lesson progress
+          'GetDataChunk',  // retreive stringified object with lesson progress
+          'SetReachedEnd', // tell LMS user completed course
+          'SetFailed', // tell LMS user Failed course
+          'SetPassed', // tell LMS user Passed the course
+          'SetScore', // Report Users Score to the LMS (for Pass and fail)
+          'GetStatus', // Get Current Status
+          'ResetStatus', // Reset the Status
+          'Finish',
+          'ConcedeControl'
+        ];
+
+        var LMSProxy = pick(stuffToPick, window.parent, Function.prototype);
+        finish(0);
+
+        var cache = getLMSData();
+
+        
+
+        function isPassed() {
+          return LMSProxy.GetStatus() === window.parent.LESSON_STATUS_PASSED;
+        }
+
+        function assign(target) {
+          if (target === undefined || target === null) {
+            throw new TypeError('assign: Cannot convert undefined or null to object');
+          }
+
+          var output = Object(target);
+
+          for (var index = 1; index < arguments.length; index++) {
+            var source = arguments[index];
+            if (source !== undefined && source !== null) {
+              for (var nextKey in source) {
+                if (source.hasOwnProperty(nextKey)) {
+                  output[nextKey] = source[nextKey];
+                }
+              }
+            }
+          }
+          return output;
+        }
+
+        function getLMSData() {
+          if(!cache) {
+            return JSON.parse(LMSProxy.GetDataChunk() || '{ "quizItems": {} }');
+          }
+
+          return cache;
+        }
+
+        function concatLMSData(data) {
+          if(!data.quizItems) {
+            assign(cache, data);
+          }
+
+          LMSProxy.SetDataChunk(JSON.stringify(cache));
+        }
+
+        function completeOut(passed) {
+          if(passed) {
+            switch(reporting) {
+              case 'completed-incomplete':
+              case 'completed-failed':
+                LMSProxy.ResetStatus();
+                LMSProxy.SetReachedEnd();
+                break;
+
+              case 'passed-incomplete':
+              case 'passed-failed':
+                LMSProxy.SetPassed();
+                LMSProxy.SetReachedEnd();
+                break;
+            }
+          
+          } else {
+            switch(reporting) {
+              case 'passed-failed':
+              case 'completed-failed':
+                if(!isPassed()) {
+                  LMSProxy.SetFailed();
+                }
+                break;
+            }
+          }
+        }
+
+        function bookmark(id) {
+          var url = 'index.html#/list/' + id + '/preview';
+
+          LMSProxy.SetBookmark(url, '');
+        }
+
+        function incQuizAttempts(quizId, attempts) {
+          var lmsAttempts = assign({}, { attempts: {} }, getLMSData()).attempts;
+
+          if(!lmsAttempts[quizId]) {
+            lmsAttempts[quizId] = attempts;
+          }
+
+          lmsAttempts[quizId] = lmsAttempts[quizId] + 1;
+          concatLMSData({ attempts: lmsAttempts });
+
+          return lmsAttempts[quizId];
+        }
+
+        function getQuizAttempts(quizId, attempts) {
+          var lmsAttempts = assign({}, { attempts: {} }, getLMSData()).attempts;
+
+          if(!lmsAttempts[quizId]) {
+            lmsAttempts[quizId] = attempts;
+          }
+
+          return lmsAttempts[quizId];
+        }
+
+        function getCurrentTime(id, currentTime) {
+          var times = getLMSData().times || {};
+          return times[id] || currentTime;
+        }
+
+        function setCurrentTime(id, currentTime) {
+          var times = getLMSData().times || {};
+          times[id] = Math.max(currentTime, times[id]);
+          concatLMSData({ times: times });
+          return currentTime;
+        }
+
+        function reportScore(id, score) {
+          var highScore = Math.max(getLMSData().score || 0, score);
+          concatLMSData({ score: highScore });
+
+          LMSProxy.SetScore(highScore, 100, 0);
+        }
+
+        function finish(totalProgress) {
+          if(quizId === null && completionPercentage != undefined && totalProgress >= completionPercentage) {
+            completeOut(true)
+          }
+        }
+
+        function exit() {
+          LMSProxy.ConcedeControl();
+        }
+
+        function finishQuiz(passed, score, id) {
+          delete cache.quizItems[id];
+          concatLMSData({ quizItems: cache.quizItems });
+
+          if(id == quizId) {
+            reportScore(id, score);
+            completeOut(passed);
+          }
+        }
+
+        function getProgress(lessons) {
+          var progress = assign({}, { progress: {} }, getLMSData()).progress;
+
+          return Object.getOwnPropertyNames(progress).reduce(function(acc, key) {
+            acc[key] = decodeProgress(getLesson(lessons, key), progress[key]);
+            return acc;
+          }, {});
+        }
+
+        function setProgress(progress) {
+          concatLMSData({ progress: progress });
+        }
+
+        function isArray(x) {
+          return ({}).toString.call(x) === '[object Array]';
+        }
+
+        function getLesson(lessons, id) {
+          for(var i=0; i < lessons.length; i++) {
+            if(lessons[i].id === id) {
+              return lessons[i];
+            }
+          }
+          return null;
+        }
+
+        function itemAdd(acc, x) {
+          return acc + (isArray(x) ? 0 : x);
+        }
+
+        function done(item) {
+          return item.isDone === true;
+        }
+
+        function decodeItems(xs) {
+          return function(acc, progress, index) {
+            if(!progress) { return acc; }
+
+            var current = xs[index];
+            var id = current.id;
+            var items = current.items;
+
+            if(isArray(progress)) {
+              return acc.concat({
+                id: id,
+                items: progress.reduce(decodeItems(items), [])
+              })
+            }
+
+            if(items) {
+              return acc.concat({
+                id: id,
+                items: items.reduce(decodeItems(items), [])
+              })
+            }
+
+            return acc.concat({ id: id })
+          }
+        }
+
+        function decodeLessonItems(items, progress) {
+          return progress.reduce(decodeItems(items), [])
+        }
+
+        function decodeProgress(lesson, progress) {
+          var items = lesson.items || [];
+
+          if(isArray(progress)) {
+            if(progress.length === 1 && progress[0] === 1) {
+              return decodeLessonItems([ { items: items } ], progress)[0].items;
+            }
+
+            return decodeLessonItems(items, progress);
+          }
+
+          return progress;
+        }
+
+        function encodeItems(acc, lesson, index, arr) {
+          var zeros = acc[0];
+          var progress = acc[1];
+          var items = lesson.items || [];
+          var isDone = lesson.isDone;
+
+          if(isDone) {
+            return [ [], progress.concat(zeros, 1) ];
+          }
+
+          var doneItems = items.filter(done)
+
+          if(doneItems.length) {
+            if(doneItems.length === items.length) {
+              return [ [], progress.concat(zeros, 1) ];
+            }
+
+            var child = items.reduce(encodeItems, [ [], [] ]);
+            var itemsZeros = child[0]
+            var itemsProgress = child[1]
+
+            return [
+              [],
+              progress.concat(zeros,
+                itemsProgress.length === 1
+                  ? itemsProgress[0]
+                  : [ itemsZeros.length ? itemsProgress.concat(0) : itemsProgress ]
+              )
+            ];
+          }
+
+          if(index + 1 === arr.length) {
+            return [ [], progress.concat(0) ]
+          }
+
+          return [ zeros.concat(0), progress ]
+        }
+
+        function encodeProgress(lesson) {
+          var items = lesson.items;
+          var encoded = items.reduce(encodeItems, [ [], [] ])[1];
+
+          if(!encoded.length) {
+            return [ 0 ];
+          }
+
+          return encoded.reduce(itemAdd, 0) !== items.length
+            ? encoded : [ 1 ];
+        }
+
+        function pickQuiz(item) {
+          return pick([ 'isDone', 'isComplete', 'isCorrect' ], item);
+        }
+
+        function boolToNumber(bool) {
+          return bool ? 1 : 0;
+        }
+
+        function encodeQuizIems(items) {
+          return items.reduce(function(acc, item) {
+            return acc.concat([[
+              boolToNumber(item.isDone),
+              boolToNumber(item.isComplete),
+              boolToNumber(item.isCorrect)
+            ]]);
+          }, []);
+        }
+
+        function decodeQuizItems(items) {
+          return items.reduce(function(acc, item) {
+            return acc.concat({
+              isDone: !!item[0],
+              isComplete: !!item[1],
+              isCorrect: !!item[2]
+            })
+          }, [])
+        }
+
+        function setQuizItems(quizId, items) {
+          var quizItems = getLMSData().quizItems;
+
+          quizItems[quizId] = encodeQuizIems(items);
+          concatLMSData({ quizItems: quizItems });
+
+          return items;
+        }
+
+        function getQuizItems(quizId) {
+          var items = assign({}, { quizItems: {} }, getLMSData()).quizItems[quizId];
+
+          if(items) {
+            return decodeQuizItems(items);
+          }
+        }
+
+        function getScores(scores) {
+          var result = assign({}, { scores: scores }, getLMSData()).scores;
+          return result;
+        }
+
+        function setScore(id, score) {
+          var scores = assign({}, { scores: {} }, getLMSData()).scores;
+
+          scores[id] = score;
+          concatLMSData({ scores: scores });
+
+          return score;
+        }
+
+        function applyLMSData(data) {
+          data.lessons
+            .filter(function(l) { return l.type === 'quiz' })
+            .forEach(function(l) {
+              var retryCount = l.settings.retryQuiz ? l.settings.retryCount : 0;
+              var attempts = parseInt(retryCount) !== -1 ? getQuizAttempts(l.id, 0) : -Infinity;
+              var items = getQuizItems(l.id);
+
+              if(items) {
+                l.items.forEach(function(item, indx) {
+                  assign(item, items[indx]);
+                });
+              }
+
+              l.isDone = attempts > retryCount;
+            });
+
+          return data;
+        }
+
+        function fetch(decode, defaultData) {
+          return applyLMSData(decode(data) || defaultData);
+        }
+
+        function fetchLabelSet() {
+          return labelSet;
+        }
+
+        function resolvePath(path) {
+          return ('assets/').concat(path);
+        }
+
+        function createHistory(browserFunc, hashFunc) {
+          return hashFunc;
+        }
+
+        function pick(keys, obj, def) {
+          return keys.reduce(function(memo, key) {
+            if(obj[key] === undefined) {
+              if(def !== undefined) {
+                memo[key] = def
+              }
+            } else {
+              memo[key] = obj[key]
+            }
+
+            return memo;
+          }, {});
+        }
+
+        function debounce(fn, delay) {
+          var timer = null;
+          return function () {
+            var context = this, args = arguments;
+            clearTimeout(timer);
+            timer = setTimeout(function () {
+              fn.apply(context, args);
+            }, delay);
+          };
+        }
+
+        root.Runtime = {
+          fetch: fetch,
+          fetchLabelSet: fetchLabelSet,
+          resolvePath: resolvePath,
+          createHistory: createHistory,
+          bookmark: bookmark,
+          exit: exit,
+          encodeProgress: encodeProgress,
+          finish: finish,
+          finishQuiz: finishQuiz,
+          getProgress: getProgress,
+          setProgress: debounce(setProgress, 500),
+          setQuizItems: debounce(setQuizItems, 500),
+          getScores: getScores,
+          setScore: setScore,
+          getCurrentTime: getCurrentTime,
+          setCurrentTime: setCurrentTime,
+          incQuizAttempts: incQuizAttempts,
+          getQuizAttempts: getQuizAttempts
+        };
+      }(window));
+    </script>
+    <script src="lib/main.bundle.js"></script>
+      
+  </body>
+</html>
